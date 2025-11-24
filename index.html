@@ -27,6 +27,13 @@
         },
       }
     </script>
+    <script>
+      // Polyfill process.env for environments that don't inject it (like simple static hosting)
+      // This prevents the app from crashing immediately due to ReferenceError
+      if (typeof process === 'undefined') {
+        window.process = { env: { API_KEY: '' } };
+      }
+    </script>
     <style>
       /* Custom scrollbar for webkit */
       ::-webkit-scrollbar {
@@ -62,5 +69,6 @@
 </head>
   <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
     <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>
